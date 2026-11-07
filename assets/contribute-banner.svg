@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1120" height="295" viewBox="0 0 1120 295" role="img" aria-labelledby="title desc">
+<title id="title">Creators worldwide, you're invited!</title>
+<desc id="desc">Any language, background, or skill level. Share code, art, sound, feedback and ideas. Every perspective helps us learn, build and grow. LoveToMother, LoveToMaaKali, LoveCoding, BuildTogether.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#24122e"/><stop offset=".57" stop-color="#1a1025"/><stop offset="1" stop-color="#34152b"/></linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#8d4778" stop-opacity=".23"/><stop offset="1" stop-color="#8d4778" stop-opacity="0"/></radialGradient>
+  <linearGradient id="bar" x1="0" x2="1"><stop stop-color="#f7c474"/><stop offset="1" stop-color="#bb7fdb"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="7" flood-color="#000" flood-opacity=".28"/></filter>
+</defs>
+<rect x="4" y="4" width="1112" height="287" rx="23" fill="url(#bg)" stroke="#674063" stroke-width="2" filter="url(#shadow)"/>
+<circle cx="1014" cy="112" r="205" fill="url(#glow)"/>
+<path d="M 33 40 L 33 252" stroke="url(#bar)" stroke-width="5" stroke-linecap="round"/>
+<!-- decorative coding tile -->
+<rect x="60" y="54" width="79" height="76" rx="17" fill="#5a3b62" opacity=".8"/>
+<g fill="none" stroke="#f6c579" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M 90 80 L 79 91 L 90 102"/><path d="M 109 80 L 120 91 L 109 102"/><path d="M 106 75 L 96 108" stroke-width="3"/>
+</g>
+<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">
+  <text x="163" y="78" fill="#F7C579" font-size="36" font-weight="750" letter-spacing=".1">Creators worldwide, you're invited!</text>
+  <text x="163" y="116" fill="#f0dfec" font-size="24" font-weight="600">Any language. Any background. Any skill level.</text>
+  <text x="62" y="169" fill="#e8dce7" font-size="23">Bring your code, art, sound, knowledge, feedback, or fresh ideas.</text>
+  <text x="62" y="204" fill="#e8dce7" font-size="23">Every perspective helps us learn, build, and grow together.</text>
+  <text x="62" y="258" fill="#F7C579" font-size="20.5" font-weight="700">#LoveToMother     #LoveToMaaKali     #LoveCoding     #BuildTogether</text>
+</g>
+<g fill="#D8A870" opacity=".7"><circle cx="1035" cy="51" r="3"/><circle cx="1071" cy="74" r="2"/><circle cx="1024" cy="231" r="2.4"/></g>
+</svg>
