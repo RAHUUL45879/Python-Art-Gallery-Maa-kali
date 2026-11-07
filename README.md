@@ -6,7 +6,7 @@
 [Watch the current silent preview](exports/Maa_Kali_Radiant_31s_Python.mp4) · [Explore the renderer](render_radiant_31s.py) · [See the tests](tests/test_radiant_movie.py)
 
 **Film:** 432 × 768 (portrait) · 20 FPS · 620 frames · H.264 MP4  
-**Status:** Working development version. Music, the final release, and public licensing are still being prepared.
+**Status:** Working development version. Local audio mixing is implemented; the official release and public licensing are still being prepared.
 
 > **How it is made:** Python draws the opening M, Mahadev, the ending, smoke, sparks, lighting, and transitions. The approved **16-frame Maa Kali GIF** in `assets/` provides the central character reveal. Python blends that artwork into the scene and encodes the complete video. The renderer does **not** use a finished MP4 as input. This is Python-produced animation, **not a fully code-drawn Kali character**.
 
@@ -39,7 +39,7 @@ Only **two external Python packages** are required by the current video renderer
 | Package | Official link | Used for | Main APIs in this project |
 |---|---|---|---|
 | **Pillow** (`PIL`) | [Docs](https://pillow.readthedocs.io/en/stable/) · [Source](https://github.com/python-pillow/Pillow) | Draw shapes and text, read GIF frames, blur glow, combine layers | `Image`, `ImageDraw`, `ImageFilter`, `ImageFont`, `Image.blend`, `alpha_composite` |
-| **imageio-ffmpeg** | [Docs and source](https://github.com/imageio/imageio-ffmpeg) · [PyPI](https://pypi.org/project/imageio-ffmpeg/) | Encode frames into an H.264 MP4 with FFmpeg | `write_frames()`; `get_ffmpeg_exe()` for future audio work |
+| **imageio-ffmpeg** | [Docs and source](https://github.com/imageio/imageio-ffmpeg) · [PyPI](https://pypi.org/project/imageio-ffmpeg/) | Encode frames into an H.264 MP4 with FFmpeg | `write_frames()` for video; `get_ffmpeg_exe()` for audio mixing |
 
 **Built into Python (no extra install):** [`math`](https://docs.python.org/3/library/math.html) for curves and movement, [`random`](https://docs.python.org/3/library/random.html) for repeatable particle patterns, [`pathlib`](https://docs.python.org/3/library/pathlib.html) for file paths, [`argparse`](https://docs.python.org/3/library/argparse.html) for render options, [`functools.lru_cache`](https://docs.python.org/3/library/functools.html) to reuse Shiva drawings, and [`unittest`](https://docs.python.org/3/library/unittest.html) for tests.
 
@@ -50,6 +50,7 @@ Only **two external Python packages** are required by the current video renderer
 | File | What it does | Change it when you want to… |
 |---|---|---|
 | [`render_radiant_31s.py`](render_radiant_31s.py) | Main entry point; frame timing, scene selection, GIF interpolation, compositing and MP4 export | Adjust timing, transitions, canvas size, frame rate or output |
+| [`add_music.py`](add_music.py) | Mixes a local soundtrack into an existing silent video using FFmpeg | Choose song start, music volume, fade-in/out or audio input |
 | [`code_art/scene1.py`](code_art/scene1.py) | Draws the M with Bézier paths, orbital rings, glow and embers | Improve the opening logo or particles |
 | [`code_art/eyes_shiva.py`](code_art/eyes_shiva.py) | Draws dark atmosphere, glowing eyes, smoke and foreground Mahadev | Change the reveal and scene atmosphere |
 | [`code_art/shiva_approved.py`](code_art/shiva_approved.py) | Draws Mahadev’s pose, hair and fire/smoke details | Improve the character drawing |
@@ -91,29 +92,36 @@ python render_radiant_31s.py
 
 The full render is written to `output/Maa_Kali_Radiant_31s_Python.mp4`. Generated files in `output/` are ignored by Git. The `exports/` video is the saved development baseline. On a system with Bash, `bash run.sh test`, `bash run.sh preview`, and `bash run.sh full` are shortcuts. If `python` is unavailable, use your system's Python command or virtual-environment interpreter.
 
-## Audio — the next feature
+## Audio — mix a soundtrack with Python
 
-The current main renderer produces a **silent video**. The `audio/` folder is for local music; audio recordings are excluded from Git. The final soundtrack mix is not yet part of the tracked render pipeline.
+The animation renderer creates a **silent MP4** first. The separate, working [`add_music.py`](add_music.py) script uses Python's [`subprocess`](https://docs.python.org/3/library/subprocess.html) and [`imageio-ffmpeg`](https://github.com/imageio/imageio-ffmpeg) to add music without redrawing frames or changing the original video. FFmpeg copies the existing H.264 video and encodes the chosen soundtrack as AAC.
 
-Audio can be added after video rendering by calling FFmpeg from Python with [`subprocess`](https://docs.python.org/3/library/subprocess.html). For example, a future `add_music.py` could run:
+**Run from the project root:**
 
-```python
-import subprocess
-import imageio_ffmpeg
-
-subprocess.run([
-    imageio_ffmpeg.get_ffmpeg_exe(), "-y",
-    "-i", "output/Maa_Kali_Radiant_31s_Python.mp4",
-    "-stream_loop", "-1", "-i", "audio/background_music.mp3",
-    "-filter_complex", "[1:a]atrim=0:31,asetpts=PTS-STARTPTS,"
-                       "volume=0.35,afade=t=in:st=0:d=1,"
-                       "afade=t=out:st=29:d=2[a]",
-    "-map", "0:v:0", "-map", "[a]", "-t", "31",
-    "-c:v", "copy", "-c:a", "aac", "output/Maa_Kali_With_Music.mp4",
-], check=True)
+```bash
+python render_radiant_31s.py     # Render the 31-second silent video
+python add_music.py             # Mix the first 31 seconds of a local song
 ```
 
-**This is a proposed example, not a command the current renderer runs.** It loops a local track if needed, trims it to 31 seconds, lowers volume, adds fades, and combines the audio with the video. Use music you have permission to publish.
+Put **one** music file (for example, `audio/background_music.mp3`) inside `audio/`. The script finds it automatically; supported formats include MP3, WAV, M4A, AAC, FLAC, and OGG. The music file is **not included in this repository**.
+
+| Setting | Default | Customize |
+|---|---|---|
+| Song starting point | `0` seconds | `--start 40` starts at 40 seconds |
+| Music volume | `0.72` (72%) | `--volume 0.6` |
+| Fade-in | `1.5` seconds | `--fade-in 2` |
+| Fade-out | `2` seconds | `--fade-out 3` |
+| Output | `output/Maa_Kali_31s_Audio_Review.mp4` | `--output path/to/file.mp4` |
+
+Example with custom timing:
+
+```bash
+python add_music.py --start 40 --volume 0.6 --fade-in 2 --fade-out 3
+```
+
+**How the audio code works:** `choose_audio()` finds the local soundtrack; `argparse` reads the options; an FFmpeg audio filter trims or pads sound to 31 seconds, adjusts volume and applies fades; `subprocess.run()` executes FFmpeg. The original MP3 and silent MP4 remain unchanged. See [`README_AUDIO_ADDON.md`](README_AUDIO_ADDON.md) for the short audio guide.
+
+**Publishing note:** The `audio/` music files and `output/` review renders are ignored by Git. Only publish an audio-containing video if you have permission to distribute its soundtrack. The original silent development video is available in [`exports/`](exports/).
 
 ## Contribute and develop
 
