@@ -1,0 +1,2 @@
+ba1a143523025187a8c41000e034f8b64bb43751869be38d4dc4a4bd4ae24750  assets/maa_kali_radiant_reveal.gif
+a9f081b44fafc109c1053d581898f0e33a59c984dece3e0315541174fcee4735  exports/Maa_Kali_Radiant_31s_Python.mp4

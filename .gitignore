@@ -1,0 +1,29 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+# local environments / editor files
+.venv/
+venv/
+.env
+.env.*
+.vscode/
+.idea/
+# generated local renders, logs, temporary files
+output/*
+!output/.gitkeep
+*.log
+.DS_Store
+Thumbs.db
+# local music, do not upload without checking usage rights
+audio/*
+!audio/README.md
+# backups/installation files
+Backups/
+Installers/
+*.bak
+
+# Local music files
+audio/*
+!audio/README*
