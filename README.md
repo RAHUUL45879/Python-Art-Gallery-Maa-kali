@@ -3,6 +3,14 @@
 **A 31-second devotional animation built frame by frame with Python.**  
 *A Mitratics creative-coding project.*
 
+> [!TIP]
+> **▶ Play the Maa Kali animation — start here!**  
+> Install dependencies once with `python -m pip install -r requirements.txt`, then run **`python play.py`** from the project folder (Windows, macOS, or Linux).  
+> The `play` launcher **renders the complete 31-second Python animation, adds one optional *local* soundtrack from `audio/`, and opens the finished MP4** in your default video player. No song? It plays the silent animation automatically.  
+> **Git Bash / macOS / Linux:** `bash play` · **Windows Command Prompt:** `play` · **Windows PowerShell:** `.\play.cmd`  
+> **Quick preview:** `python play.py --preview` · **Silent only:** `python play.py --silent` · **No player:** `python play.py --no-open`  
+> This command uses your own Python installation and project files; it does **not** depend on the original creator’s laptop paths. Bring your own soundtrack only if you have permission to use it.
+
 [Watch the current silent preview](exports/Maa_Kali_Radiant_31s_Python.mp4) · [Explore the renderer](render_radiant_31s.py) · [See the tests](tests/test_radiant_movie.py)
 
 **Film:** 432 × 768 (portrait) · 20 FPS · 620 frames · H.264 MP4  
@@ -34,7 +42,7 @@ imageio-ffmpeg encodes RGB frames → output/*.mp4
 
 ## Libraries and where they are used
 
-Only **two external Python packages** are required by the current video renderer. See [`requirements.txt`](requirements.txt).
+Only **two external Python packages** are required by the current video renderer and playback launcher. See [`requirements.txt`](requirements.txt).
 
 | Package | Official link | Used for | Main APIs in this project |
 |---|---|---|---|
@@ -49,6 +57,7 @@ Only **two external Python packages** are required by the current video renderer
 
 | File | What it does | Change it when you want to… |
 |---|---|---|
+| [`play.py`](play.py) and [`play`](play) / [`play.cmd`](play.cmd) | One-command render, optional local music, and automatic desktop playback on Windows/macOS/Linux | Run and watch the video; change the playback workflow |
 | [`render_radiant_31s.py`](render_radiant_31s.py) | Main entry point; frame timing, scene selection, GIF interpolation, compositing and MP4 export | Adjust timing, transitions, canvas size, frame rate or output |
 | [`add_music.py`](add_music.py) | Mixes a local soundtrack into an existing silent video using FFmpeg | Choose song start, music volume, fade-in/out or audio input |
 | [`code_art/scene1.py`](code_art/scene1.py) | Draws the M with Bézier paths, orbital rings, glow and embers | Improve the opening logo or particles |
@@ -74,6 +83,8 @@ FRAMES = OPENING + MIDDLE + ENDING  # 620 frames / 20 FPS = 31 seconds
 **Visual techniques:** Bézier curves draw smooth paths; a changing frame index creates motion; RGBA layers allow transparency; `GaussianBlur` makes light glow; `Image.blend()` makes smooth transitions. In Scene 2, `CUES` controls when the 16 GIF frames appear across 17.7 seconds, and cached Shiva layers avoid repeated heavy drawing.
 
 ## Run the project
+
+**Recommended:** Run `python play.py` to render and watch the complete animation in one step. Or use `bash play` in Git Bash/macOS/Linux, `play` in Windows Command Prompt, or `.\play.cmd` in PowerShell. The optional soundtrack is local and not distributed. `--preview` renders a 4-second **silent** demo; `--no-open` builds without launching a player.
 
 Install **Python 3.11+** and the project dependencies (a virtual environment is recommended):
 

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Portable Git Bash / macOS / Linux launcher for play.py.
+set -euo pipefail
+HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -n "${PYTHON_EXECUTABLE:-}" ]]; then
+    exec "$PYTHON_EXECUTABLE" "$HERE/play.py" "$@"
+elif command -v python >/dev/null 2>&1; then
+    exec python "$HERE/play.py" "$@"
+elif command -v python3 >/dev/null 2>&1; then
+    exec python3 "$HERE/play.py" "$@"
+else
+    echo "Python 3.11+ not found. Install Python and the project dependencies." >&2
+    exit 127
+fi
