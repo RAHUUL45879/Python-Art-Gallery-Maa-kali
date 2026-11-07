@@ -29,7 +29,7 @@ import imageio_ffmpeg
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'code_art'))  # supports existing scene modules
 from code_art import scene1, scene3
-import eyes_shiva as E
+from code_art import eyes_shiva as E
 
 W, H = 432, 768
 FPS = 20

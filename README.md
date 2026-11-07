@@ -14,7 +14,7 @@
 [Watch the current silent preview](exports/Maa_Kali_Radiant_31s_Python.mp4) · [Explore the renderer](render_radiant_31s.py) · [See the tests](tests/test_radiant_movie.py)
 
 **Film:** 432 × 768 (portrait) · 20 FPS · 620 frames · H.264 MP4  
-**Status:** Working development version. Local audio mixing is implemented; the official release and public licensing are still being prepared.
+**Status:** Development complete; release preparation in progress. Audio mixing is implemented. Review bundled artwork rights and permissions before making the repository public.
 
 > **How it is made:** Python draws the opening M, Mahadev, the ending, smoke, sparks, lighting, and transitions. The approved **16-frame Maa Kali GIF** in `assets/` provides the central character reveal. Python blends that artwork into the scene and encodes the complete video. The renderer does **not** use a finished MP4 as input. This is Python-produced animation, **not a fully code-drawn Kali character**.
 
@@ -132,17 +132,17 @@ python add_music.py --start 40 --volume 0.6 --fade-in 2 --fade-out 3
 
 **How the audio code works:** `choose_audio()` finds the local soundtrack; `argparse` reads the options; an FFmpeg audio filter trims or pads sound to 31 seconds, adjusts volume and applies fades; `subprocess.run()` executes FFmpeg. The original MP3 and silent MP4 remain unchanged. See [`README_AUDIO_ADDON.md`](README_AUDIO_ADDON.md) for the short audio guide.
 
-**Publishing note:** The `audio/` music files and `output/` review renders are ignored by Git. Only publish an audio-containing video if you have permission to distribute its soundtrack. The original silent development video is available in [`exports/`](exports/).
+**Publishing note:** The `audio/` music files and `output/` review renders are ignored by Git. Only publish an audio-containing video if you have permission to distribute its soundtrack. The original silent development video is available in [`exports/`](exports/). Check the rights for the bundled visuals too before public distribution.
 
 ## Contribute and develop
 
 ![Creators worldwide are invited: any language, background or skill level. Share code, art, sound, knowledge, feedback and ideas. Every perspective helps us learn, build and grow together.](assets/contribute-banner.svg)
 
-**Make it yours:** Pick a scene or feature from the **Code map** above, improve it, and run `--preview` and the tests. When contributions open, share your work through a pull request. **All ideas are welcome; changes to `main` are reviewed before merging.**
+**Make it yours:** Pick a scene or feature from the **Code map** above, improve it, and run `--preview` and the tests. When contributions open, share your work through a pull request. **All ideas are welcome; changes to `main` are reviewed by the maintainer before merging.**
 
-**Quick Git:** `git status` → `git add .` → `git commit -m "Describe change"` → `git push`. [GitHub Actions](.github/workflows/python-tests.yml) checks the tests, but does not yet render the full movie in CI.
+**Quick Git:** `git status -sb` → stage only the intended source/documentation files (`git add path/to/file`) → `git diff --cached --stat` → commit → push. Avoid `git add .` if local music or finished videos may be present. [GitHub Actions](.github/workflows/python-tests.yml) checks the tests, but does not render the full movie in CI.
 
-**Versions and rights:** Git history records development; completed editions will use GitHub Releases. Public code licensing, artwork permissions, and contribution rules are still being prepared. The video, GIF, Mitratics branding, and third-party music are not automatically covered by a future code license.
+**Versions and rights:** Original source code and project documentation are offered under the [MIT License](LICENSE). See [Asset & Music Policy](ASSET_POLICY.md) for the **separate status of the video, GIF, Mitratics branding and any third-party material**. The code license does **not** license those materials. Read [Contributing](CONTRIBUTING.md) before opening a pull request. Git history preserves changes; official versions use GitHub Releases once rights and final checks are complete.
 
 ---
 
